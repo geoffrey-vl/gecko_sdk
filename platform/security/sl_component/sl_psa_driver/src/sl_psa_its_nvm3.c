@@ -62,15 +62,23 @@
   #endif // defined(SEMAILBOX_PRESENT)
 #endif // defined(SLI_PSA_ITS_ENCRYPTED)
 
+// SLI_STATIC_TESTABLE is used to expose otherwise-static variables during
+// internal testing.
+#if defined(SLI_STATIC_TESTABLE)
+  #define SLI_STATIC
+#else
+  #define SLI_STATIC static
+#endif
+
 // -------------------------------------
 // Threading support
 
 #if defined(MBEDTLS_THREADING_C)
-#include "cmsis_os2.h"
-#include "mbedtls/threading.h"
+  #include "cmsis_os2.h"
+  #include "mbedtls/threading.h"
 
 // Mutex for protecting access to the ITS instance
-static mbedtls_threading_mutex_t its_mutex;
+SLI_STATIC mbedtls_threading_mutex_t its_mutex MUTEX_INIT;
 static volatile bool its_mutex_inited = false;
 
 /**
@@ -113,6 +121,9 @@ void sli_its_acquire_mutex(void)
   if (!its_mutex_inited) {
     int32_t kernel_lock_state = lock_task_switches();
     if (!its_mutex_inited) {
+      // The ITS mutex needs to be recursive since the same thread may need
+      // to acquire it more than one time.
+      its_mutex.mutex_attr.attr_bits |= osMutexRecursive;
       mbedtls_mutex_init(&its_mutex);
       its_mutex_inited = true;
     }
@@ -161,11 +172,6 @@ void sli_its_release_mutex(void)
 #define SLI_PSA_ITS_ECODE_NO_VALID_HEADER (ECODE_EMDRV_NVM3_BASE - 1)
 #define SLI_PSA_ITS_ECODE_NEEDS_UPGRADE   (ECODE_EMDRV_NVM3_BASE - 2)
 
-// SLI_STATIC_TESTABLE is used to expose otherwise-static variables during internal testing.
-#if !defined(SLI_STATIC_TESTABLE)
-#define SLI_STATIC_TESTABLE static
-#endif
-
 #if defined(SLI_PSA_ITS_ENCRYPTED)
 // Define some cryptographic constants if not already set. This depends on the underlying
 // crypto accelerator in use (CRYPTOACC has these defines, but not SEMAILBOX).
@@ -183,8 +189,8 @@ void sli_its_release_mutex(void)
 // -------------------------------------
 // Local global static variables
 
-SLI_STATIC_TESTABLE bool nvm3_uid_set_cache_initialized = false;
-SLI_STATIC_TESTABLE uint32_t nvm3_uid_set_cache[(SL_PSA_ITS_MAX_FILES + 31) / 32] = { 0 };
+SLI_STATIC bool nvm3_uid_set_cache_initialized = false;
+SLI_STATIC uint32_t nvm3_uid_set_cache[(SL_PSA_ITS_MAX_FILES + 31) / 32] = { 0 };
 
 typedef struct {
   psa_storage_uid_t uid;
@@ -1615,19 +1621,14 @@ psa_status_t sli_psa_its_set_root_key(uint8_t *root_key, size_t root_key_size)
 #define SLI_PSA_ITS_ECODE_NO_VALID_HEADER (ECODE_EMDRV_NVM3_BASE - 1)
 #define SLI_PSA_ITS_ECODE_NEEDS_UPGRADE   (ECODE_EMDRV_NVM3_BASE - 2)
 
-// SLI_STATIC_TESTABLE is used to expose otherwise-static variables during internal testing.
-#if !defined(SLI_STATIC_TESTABLE)
-#define SLI_STATIC_TESTABLE static
-#endif
-
 // -------------------------------------
 // Local global static variables
 
-SLI_STATIC_TESTABLE bool nvm3_uid_set_cache_initialized = false;
-SLI_STATIC_TESTABLE uint32_t nvm3_uid_set_cache[(SL_PSA_ITS_MAX_FILES + 31) / 32] = { 0 };
-SLI_STATIC_TESTABLE uint32_t nvm3_uid_tomb_cache[(SL_PSA_ITS_MAX_FILES + 31) / 32] = { 0 };
+SLI_STATIC bool nvm3_uid_set_cache_initialized = false;
+SLI_STATIC uint32_t nvm3_uid_set_cache[(SL_PSA_ITS_MAX_FILES + 31) / 32] = { 0 };
+SLI_STATIC uint32_t nvm3_uid_tomb_cache[(SL_PSA_ITS_MAX_FILES + 31) / 32] = { 0 };
 #if SL_PSA_ITS_SUPPORT_V2_DRIVER
-SLI_STATIC_TESTABLE uint32_t its_driver_version = SLI_PSA_ITS_NOT_CHECKED;
+SLI_STATIC uint32_t its_driver_version = SLI_PSA_ITS_NOT_CHECKED;
 #endif // SL_PSA_ITS_SUPPORT_V2_DRIVER
 
 #if defined(SLI_PSA_ITS_ENCRYPTED)

@@ -22,7 +22,7 @@
  * Watchdog Interrupt Handler.
  ******************************************************************************/
 #if (_SILICON_LABS_32B_SERIES >= 1)
-void SL_LEGACY_HAL_WDOG_IRQHandler(void)
+SL_WEAK void SL_LEGACY_HAL_WDOG_IRQHandler(void)
 {
   uint32_t interrupts;
 

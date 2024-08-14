@@ -38,7 +38,6 @@
 
 // <<< Use Configuration Wizard in Context Menu >>>
 
-
 // <h> Regional Regulation
 
 // corresponds to SL_WISUN_REGULATION_NONE
@@ -47,10 +46,14 @@
 // corresponds to SL_WISUN_REGULATION_ARIB
 #define SL_WISUN_APP_CORE_REGULATION_ARIB                      1U
 
+// corresponds to SL_WISUN_REGULATION_WPC
+#define SL_WISUN_APP_CORE_REGULATION_WPC                       2U
+
 // <h> Regulation
 // <o SL_WISUN_APP_CORE_REGULATION> Name of the Wi-SUN regional regulation or None
 // <SL_WISUN_APP_CORE_REGULATION_NONE=> None
 // <SL_WISUN_APP_CORE_REGULATION_ARIB=> ARIB
+// <SL_WISUN_APP_CORE_REGULATION_WPC=> WPC
 // <i> Default: SL_WISUN_SL_WISUN_APP_CORE_REGULATION_NONE
 #define SL_WISUN_APP_CORE_REGULATION                            SL_WISUN_APP_CORE_REGULATION_NONE
 // </h> Regulation

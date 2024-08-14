@@ -29,11 +29,19 @@
  ******************************************************************************/
 
 #include PLATFORM_HEADER
+#include "sl_component_catalog.h"
 #include "stack/include/ember.h"
 #include "sl_connect_sdk_btl-interface.h"
 #include "btl_interface.h"
-#include "app_log.h"
 #include "stack/core/sl-connect-watchdog.h"
+#ifdef SL_CATALOG_APP_LOG_PRESENT
+#include "app_log.h"
+#else
+#include <stdio.h>
+#define app_log_info(...) printf(__VA_ARGS__)
+#define app_log_error(...) printf(__VA_ARGS__)
+#define app_log_warning(...) printf(__VA_ARGS__)
+#endif
 
 static bool isBootloaderInitialized = false;
 static uint32_t storageSlotStartAddress = 0UL;

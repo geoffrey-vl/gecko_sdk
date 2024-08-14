@@ -100,3 +100,14 @@ void emberSetOrGetEzspTokenCommandHandler(bool isSet)
 #endif
 
 #endif /* __NCP_CONFIG__ */
+
+WEAK(EmberStatus mfglibSetCtune(uint16_t ctune))
+{
+  (void) ctune;
+  return EMBER_INVALID_CALL;
+}
+
+WEAK(uint16_t mfglibGetCtune(void))
+{
+  return 0xFFFF; //invalid value
+}

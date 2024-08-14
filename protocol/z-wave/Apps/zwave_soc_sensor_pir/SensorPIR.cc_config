@@ -6,6 +6,7 @@ zw_cc_notification:
         - profile_LS: ASSOCIATION_GROUP_INFO_REPORT_PROFILE_GENERAL_LIFELINE
       state_events:
         - NOTIFICATION_EVENT_HOME_SECURITY_MOTION_DETECTION_UNKNOWN_LOCATION
+        - NOTIFICATION_EVENT_HOME_SECURITY_NO_EVENT
 zw_cc_agi:
   endpoints:
     - endpoint: 0

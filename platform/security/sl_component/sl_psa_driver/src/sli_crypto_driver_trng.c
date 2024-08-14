@@ -42,7 +42,7 @@
 #include "mbedtls/threading.h"
 
 // Mutex for protecting access to the TRNG instance
-static mbedtls_threading_mutex_t trng_mutex;
+static mbedtls_threading_mutex_t trng_mutex MUTEX_INIT;
 static volatile bool trng_mutex_inited = false;
 
 /**

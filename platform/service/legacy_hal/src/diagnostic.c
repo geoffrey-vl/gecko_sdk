@@ -22,6 +22,10 @@
 #include "em_emu.h"
 #include "em_rmu.h"
 
+#ifdef SL_COMPONENT_CATALOG_PRESENT
+#include "sl_component_catalog.h"
+#endif
+
 #if defined(SL_CATALOG_IOSTREAM_UART_COMMON_PRESENT)
 #include "sl_iostream.h"
 #endif
@@ -40,8 +44,7 @@ NO_INIT(HalCrashInfoType halCrashInfo);
   #define WDOG0_IRQn WDOG_IRQn
 #endif
 
-#ifdef RTOS
-  #include "rtos/rtos.h"
+#if defined(SL_CATALOG_FREERTOS_KERNEL_PRESENT)
   #define freeRTOS 1
 #else
   #define freeRTOS 0
@@ -1235,12 +1238,12 @@ void halInternalAssertFailed(const char * filename, int linenumber)
   sli_802154phy_radio_sleep();
 #endif
 
-  halResetWatchdog();              // In case we're close to running out.
-  INTERRUPTS_OFF();
-
 #if defined(SL_CATALOG_IOSTREAM_UART_COMMON_PRESENT)
   sl_iostream_printf(SL_IOSTREAM_STDOUT, "\r\n[ASSERT:%s:%d]\r\n", filename, linenumber);
 #endif // SL_CATALOG_IOSTREAM_UART_COMMON_PRESENT
+
+  halResetWatchdog();              // In case we're close to running out.
+  INTERRUPTS_OFF();
 
 #if defined (__ICCARM__) || defined (__GNUC__)
   // We can use the special fault mechanism to preserve more assert

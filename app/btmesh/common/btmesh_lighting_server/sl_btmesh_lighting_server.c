@@ -325,7 +325,12 @@ static void server_state_changed(sl_btmesh_evt_generic_server_state_changed_t *e
 void sl_btmesh_update_lightness(uint16_t lightness, uint32_t remaining_ms)
 {
   lightbulb_state.lightness_current = lightness;
-  lightness_update(BTMESH_LIGHTING_SERVER_MAIN, remaining_ms, lightness_kind);
+  if (lightness_kind == mesh_generic_state_level) {
+    // Generic level request sets lightness_kind, the bound lighting server update needs lightness_actual
+    lightness_update(BTMESH_LIGHTING_SERVER_MAIN, remaining_ms, mesh_lighting_state_lightness_actual);
+  } else {
+    lightness_update(BTMESH_LIGHTING_SERVER_MAIN, remaining_ms, lightness_kind);
+  }
 }
 
 /*******************************************************************************

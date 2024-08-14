@@ -312,3 +312,13 @@ uint8_t *efr32GetPayload(otRadioFrame *aFrame)
     uint8_t *payload = static_cast<Mac::RxFrame *>(aFrame)->GetPayload();
     return payload;
 }
+
+bool efr32FrameIsPanIdCompressed(otRadioFrame *aFrame)
+{
+    return static_cast<Mac::RxFrame *>(aFrame)->IsPanIdCompressed();
+}
+
+uint16_t efr32GetFrameVersion(otRadioFrame *aFrame)
+{
+    return static_cast<Mac::RxFrame *>(aFrame)->GetVersion();
+}

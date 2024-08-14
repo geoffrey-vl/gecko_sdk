@@ -1,2 +1,2 @@
-Wi-SUN SDK 1.10.1
-- Underlying platform changes only. 
+Wi-SUN SDK 1.10.2
+- Targeted quality improvements and bug fixes.

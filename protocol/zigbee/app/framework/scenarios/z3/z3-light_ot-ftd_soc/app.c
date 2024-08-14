@@ -149,7 +149,7 @@ void emberAfStackStatusCallback(EmberStatus status)
 void emberAfMainInitCallback(void)
 {
   sl_zigbee_event_init(&commissioning_led_event, commissioning_led_event_handler);
-  sl_zigbee_event_init(&finding_and_binding_event, finding_and_binding_event_handler);
+  sl_zigbee_af_isr_event_init(&finding_and_binding_event, finding_and_binding_event_handler);
 }
 
 /** @brief Complete network steering.

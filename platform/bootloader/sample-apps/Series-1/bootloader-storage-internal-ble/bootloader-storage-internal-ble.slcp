@@ -30,10 +30,10 @@ configuration:
   - name: SLOT0_ENABLE
     value: 1
   - name: SLOT0_SIZE
-    value: 88064
+    value: 86016
   ## SLOT0_START configuration ##
   - name: SLOT0_START
-    value: 137216
+    value: 139264
     condition: [device_series_1]
 tag:
   - hardware:device:flash:256

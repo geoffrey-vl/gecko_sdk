@@ -183,7 +183,9 @@ static void gp_transmit_complete_event_handler(sl_zigbee_event_t *event)
  */
 void emberAfMainInitCallback(void)
 {
-  sl_zigbee_event_init(&gp_transmit_complete_event, gp_transmit_complete_event_handler);
+#if defined(SL_CATALOG_ZIGBEE_MULTIRAIL_DEMO_PRESENT)
+  sl_zigbee_af_isr_event_init(&gp_transmit_complete_event, gp_transmit_complete_event_handler);
+#endif // SL_CATALOG_ZIGBEE_MULTIRAIL_DEMO_PRESENT
 }
 
 /** @brief Incoming Custom EZSP Message Callback

@@ -42,6 +42,12 @@ configuration:
     value: 255
     unless:
       - device_family_efr32mg13
+  - name: SL_CPC_RX_BUFFER_MAX_COUNT
+    value: 10
+  - name: SL_CPC_TX_QUEUE_ITEM_MAX_COUNT
+    value: 10
+  - name: LIB_MEM_CFG_HEAP_SIZE
+    value: 0
   - name: EMBER_AF_PLUGIN_ZIGBEE_PRO_STACK_CHILD_TABLE_SIZE
     value: 32
   - name: EMBER_KEY_TABLE_SIZE
@@ -137,6 +143,7 @@ source:
 define:
   - name: EMBER_CUSTOM_MAC_FILTER_TABLE_SIZE
     value: 15
+  - name: OS_CFG_COMPAT_INIT
 
 readme:
   - path: ./readme-zigbee_ncp-ot_rcp-spi.html

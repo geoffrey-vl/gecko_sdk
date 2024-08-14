@@ -128,7 +128,7 @@ static void finding_and_binding_event_handler(sl_zigbee_event_t *event)
 // Implemented Callbacks
 void emberAfMainInitCallback(void)
 {
-  sl_zigbee_event_init(&commissioning_event, commissioning_event_handler);
+  sl_zigbee_af_isr_event_init(&commissioning_event, commissioning_event_handler);
   sl_zigbee_event_init(&led_event, led_event_handler);
   sl_zigbee_event_init(&finding_and_binding_event, finding_and_binding_event_handler);
   sl_zigbee_event_init(&detected_keyword_event, detected_keywork_event_handler);

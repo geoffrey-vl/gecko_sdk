@@ -22,13 +22,21 @@ requires:
   - name: app_assert
   - name: iostream_transport
   - name: sl_flex_util_802154_protocol
-  
+
 provides:
   - name: sl_flex_util_802154_init
 
 config_file:
 
   # The board has only 2.4GHz RF band
+  - path: config/2p4/sl_flex_util_802154_init_config.h
+    unless:
+    - "hardware_board_supports_rf_band_868"
+    - "hardware_board_supports_rf_band_914"
+    - "hardware_board_supports_rf_band_915"
+    - "hardware_board_supports_rf_band_924"
+    - "hardware_board_supports_rf_band_2400"
+
   - path: config/2p4/sl_flex_util_802154_init_config.h
     condition:
     - "hardware_board_supports_rf_band_2400"

@@ -48,7 +48,7 @@ void sli_zigbee_af_force_sleep_wakeup_init_callback(uint8_t init_level)
 {
   (void)init_level;
 
-  sl_zigbee_event_init(&force_sleep_wakeup_event, force_sleep_wakeup_event_handler);
+  sl_zigbee_af_isr_event_init(&force_sleep_wakeup_event, force_sleep_wakeup_event_handler);
 }
 
 void sl_zigbee_app_framework_force_stop(void)
@@ -60,7 +60,15 @@ void sl_zigbee_app_framework_force_stop(void)
   sli_802154mac_purge_incoming_queue();
 
   emberCancelAllEvents(&sli_zigbee_stack_event_queue);
+#ifdef SL_CATALOG_KERNEL_PRESENT
+  osStatus_t ret = osMutexAcquire(app_event_mutex_id, osWaitForever);
+  assert(ret == osOK);
+#endif // SL_CATALOG_KERNEL_PRESENT
   emberCancelAllEvents(&sli_zigbee_af_app_event_queue);
+#ifdef SL_CATALOG_KERNEL_PRESENT
+  ret = osMutexRelease(app_event_mutex_id);
+  assert(ret == osOK);
+#endif // SL_CATALOG_KERNEL_PRESENT
 
   sli_mac_lower_mac_force_sleep(true);
   force_sleep = true;

@@ -460,48 +460,90 @@ zaf_event_distributor_get(void)
 
 bool zaf_event_distributor_enqueue_app_event(const uint8_t event)
 {
-  EQueueNotifyingStatus Status;
+  EQueueNotifyingStatus Status = EQUEUENOTIFYING_STATUS_TIMEOUT;
+  bool returnValue = false;
 
   Status = QueueNotifyingSendToBack(&m_AppEventNotifyingQueue, &event, 0);
-  if (Status != EQUEUENOTIFYING_STATUS_SUCCESS) {
-    DPRINT("Failed to queue event\n");
-    return false;
+
+  switch (Status) {
+    case EQUEUENOTIFYING_STATUS_SUCCESS:
+      returnValue = true;
+      break;
+    case EQUEUENOTIFYING_STATUS_WRONG_PARAMETER:
+      DPRINT("Failed to queue event because of wrong input parameter\n");
+      returnValue = false;
+      break;
+    case EQUEUENOTIFYING_STATUS_TIMEOUT:
+      DPRINT("Failed to queue event because of timeout\n");
+      returnValue = false;
+      break;
+    default:
+      returnValue = false;
+      break;
   }
 
-  return true;
+  return returnValue;
 }
 
 bool zaf_event_distributor_enqueue_app_event_from_isr(const uint8_t event)
 {
   EQueueNotifyingStatus Status;
+  bool returnValue = false;
 
   Status = QueueNotifyingSendToBackFromISR(&m_AppEventNotifyingQueue, &event);
-  if (Status != EQUEUENOTIFYING_STATUS_SUCCESS) {
-    DPRINT("Failed to queue event\n");
-    return false;
+
+  switch (Status) {
+    case EQUEUENOTIFYING_STATUS_SUCCESS:
+      returnValue = true;
+      break;
+    case EQUEUENOTIFYING_STATUS_WRONG_PARAMETER:
+      DPRINT("Failed to queue event because of wrong input parameter\n");
+      returnValue = false;
+      break;
+    case EQUEUENOTIFYING_STATUS_TIMEOUT:
+      DPRINT("Failed to queue event because of timeout\n");
+      returnValue = false;
+      break;
+    default:
+      returnValue = false;
+      break;
   }
 
-  return true;
+  return returnValue;
 }
 
 bool zaf_event_distributor_enqueue_cc_event(const uint16_t command_class,
                                             const uint8_t event,
                                             const void* data)
 {
-  EQueueNotifyingStatus Status;
+  EQueueNotifyingStatus Status = EQUEUENOTIFYING_STATUS_TIMEOUT;
   const event_cc_t event_cc = {
     .command_class = command_class,
     .event = event,
     .data = data
   };
+  bool returnValue = false;
 
   Status = QueueNotifyingSendToBack(&m_CCEventNotifyingQueue, (const uint8_t*) &event_cc, 0);
-  if (Status != EQUEUENOTIFYING_STATUS_SUCCESS) {
-    DPRINT("Failed to queue event\n");
-    return false;
+
+  switch (Status) {
+    case EQUEUENOTIFYING_STATUS_SUCCESS:
+      returnValue = true;
+      break;
+    case EQUEUENOTIFYING_STATUS_WRONG_PARAMETER:
+      DPRINT("Failed to queue event because of wrong input parameter\n");
+      returnValue = false;
+      break;
+    case EQUEUENOTIFYING_STATUS_TIMEOUT:
+      DPRINT("Failed to queue event because of timeout\n");
+      returnValue = false;
+      break;
+    default:
+      returnValue = false;
+      break;
   }
 
-  return true;
+  return returnValue;
 }
 
 bool zaf_event_distributor_enqueue_cc_event_from_isr(const uint16_t command_class,
@@ -514,14 +556,28 @@ bool zaf_event_distributor_enqueue_cc_event_from_isr(const uint16_t command_clas
     .event = event,
     .data = data
   };
+  bool returnValue = false;
 
   Status = QueueNotifyingSendToBackFromISR(&m_CCEventNotifyingQueue, (const uint8_t*) &event_cc);
-  if (Status != EQUEUENOTIFYING_STATUS_SUCCESS) {
-    DPRINT("Failed to queue event\n");
-    return false;
+
+  switch (Status) {
+    case EQUEUENOTIFYING_STATUS_SUCCESS:
+      returnValue = true;
+      break;
+    case EQUEUENOTIFYING_STATUS_WRONG_PARAMETER:
+      DPRINT("Failed to queue event because of wrong input parameter\n");
+      returnValue = false;
+      break;
+    case EQUEUENOTIFYING_STATUS_TIMEOUT:
+      DPRINT("Failed to queue event because of timeout\n");
+      returnValue = false;
+      break;
+    default:
+      returnValue = false;
+      break;
   }
 
-  return true;
+  return returnValue;
 }
 
 /**

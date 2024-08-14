@@ -98,6 +98,9 @@ def main():
         access_point.shutdown()
     except KeyboardInterrupt:
         pass # avoid crash in case of slow shutdown meets impatient user :)
+    if sys.platform.startswith('linux'): # workaround for terminal echo issues happening on exit on many Debian and Ubuntu distros, lately
+        os.system('stty sane') # this either restores the missing terminal echo or it's just harmless (in case the issue didn't happen)
+    exit()
 
 # Script entry point.
 if __name__ == "__main__":

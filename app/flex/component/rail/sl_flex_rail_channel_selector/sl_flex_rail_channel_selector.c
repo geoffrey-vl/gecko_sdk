@@ -85,12 +85,12 @@ uint16_t get_selected_channel(void)
 void set_configured_channel(void)
 {
   uint8_t success = set_selected_channel(DEFAULT_CHANNEL);
-#if defined(SL_CATALOG_APP_ASSERT_PRESENT)
-  app_assert(success == 1,
-             "Default channel is not in range\n");
-#else
-  while (!success) ;
-#endif
+  if (!success) {
+    success = set_selected_channel(channelConfigs[0]->configs[0U].channelNumberStart);
+    #if defined(SL_CATALOG_APP_LOG_PRESENT)
+    app_log_warning("Default channel is out of range! Update the config file, using rail_config first channel as default.\n");
+    #endif
+  }
 }
 
 /******************************************************************************

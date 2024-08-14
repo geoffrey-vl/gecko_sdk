@@ -294,6 +294,12 @@ typedef enum {
   prsSignalPRS_ASYNCH9  = PRS_PRS_ASYNCH9,  /**< PRS channel 9 Signal. */
   prsSignalPRS_ASYNCH10 = PRS_PRS_ASYNCH10, /**< PRS channel 10 Signal. */
   prsSignalPRS_ASYNCH11 = PRS_PRS_ASYNCH11, /**< PRS channel 11 Signal. */
+#if defined(PRS_PRS_ASYNCH15)
+  prsSignalPRS_ASYNCH12 = PRS_PRS_ASYNCH12,  /**< PRS channel 12 Signal. */
+  prsSignalPRS_ASYNCH13 = PRS_PRS_ASYNCH13,  /**< PRS channel 13 Signal. */
+  prsSignalPRS_ASYNCH14 = PRS_PRS_ASYNCH14,  /**< PRS channel 14 Signal. */
+  prsSignalPRS_ASYNCH15 = PRS_PRS_ASYNCH15,  /**< PRS channel 15 Signal. */
+#endif
 #endif
 
   /* RTC/RTCC/SYSRTC/BURTC Signals */

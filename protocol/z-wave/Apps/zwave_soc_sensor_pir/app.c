@@ -275,13 +275,14 @@ zaf_event_distributor_app_event_manager(const uint8_t event)
       DPRINT("\r\n      *!*!**!*!**!*!**!*!**!*!**!*!**!*!**!*!*");
       DPRINT("\r\n");
 
-      (void) CC_Basic_Set_tx(&agiTableRootDeviceGroups[0].profile, ENDPOINT_ROOT, BASIC_SET_TRIGGER_VALUE, true, NULL);
       (void) CC_Notification_TriggerAndTransmit(0,
-                                                supportedEvents,
-                                                NULL,
+                                                NOTIFICATION_EVENT_HOME_SECURITY_MOTION_DETECTION_UNKNOWN_LOCATION,
+                                                &supportedEvents,
                                                 0,
                                                 NULL,
                                                 false);
+      (void) CC_Basic_Set_tx(&agiTableRootDeviceGroups[0].profile, ENDPOINT_ROOT, BASIC_SET_TRIGGER_VALUE, true, NULL);
+
       (void) AppTimerDeepSleepPersistentStart(&EventJobsTimer, BASIC_SET_TIMEOUT);
       break;
     case EVENT_APP_TRANSITION_TO_DEACTIVE:
@@ -327,7 +328,7 @@ ZCB_EventJobsTimer(__attribute__((unused)) SSwTimer *pTimer)
   (void) CC_Notification_TriggerAndTransmit(0,
                                             NOTIFICATION_EVENT_HOME_SECURITY_NO_EVENT,
                                             &supportedEvents,
-                                            1,
+                                            0,
                                             NULL,
                                             false);
   (void) CC_Basic_Set_tx(&agiTableRootDeviceGroups[0].profile, ENDPOINT_ROOT, 0, true, NULL);

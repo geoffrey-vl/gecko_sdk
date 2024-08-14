@@ -11,6 +11,8 @@ config_file:
 include:
   - path: protocol/openthread/platform-abstraction/efr32
     file_list:
+      - path: ieee802154mac.h
+      - path: sl_packet_utils.h
       - path: sl_rcp_gp_interface.h
 source:
       - path: protocol/openthread/platform-abstraction/efr32/sl_rcp_gp_interface.c

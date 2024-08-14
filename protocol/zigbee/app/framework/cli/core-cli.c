@@ -436,13 +436,20 @@ void enableDisableEndpoint(sl_cli_command_arg_t *arguments)
 #ifndef EVENT_QUEUE_LIST_END
 #define EVENT_QUEUE_LIST_END ((EmberEvent *) 1)
 #endif
-#endif
+#ifdef SL_CATALOG_KERNEL_PRESENT
+extern osMutexId_t app_event_mutex_id;
+#endif // SL_CATALOG_KERNEL_PRESENT
+#endif // SL_ZIGBEE_EVENT_DEBUG_ENABLED
 
 void printEvents(sl_cli_command_arg_t *arguments)
 {
   (void)arguments;
 #if SL_ZIGBEE_EVENT_DEBUG_ENABLED
 
+#ifdef SL_CATALOG_KERNEL_PRESENT
+  osStatus_t ret = osMutexAcquire(app_event_mutex_id, osWaitForever);
+  assert(ret == osOK);
+#endif // SL_CATALOG_KERNEL_PRESENT
   EmberEvent *finger = sli_zigbee_af_app_event_queue.events;
 
   while (finger != EVENT_QUEUE_LIST_END) {
@@ -463,6 +470,10 @@ void printEvents(sl_cli_command_arg_t *arguments)
     sl_zigbee_core_debug_println("%d ms", sl_zigbee_event_get_remaining_ms(finger));
     finger = finger->next;
   }
+#ifdef SL_CATALOG_KERNEL_PRESENT
+  ret = osMutexRelease(app_event_mutex_id);
+  assert(ret == osOK);
+#endif // SL_CATALOG_KERNEL_PRESENT
 #else
   sl_zigbee_core_debug_print("Enable event debug info in Core CLI component");
 #endif // SL_ZIGBEE_EVENT_DEBUG_ENABLED

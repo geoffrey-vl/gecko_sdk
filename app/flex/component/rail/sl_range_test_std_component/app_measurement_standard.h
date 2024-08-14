@@ -40,7 +40,8 @@
 //                              Macros and Typedefs
 // -----------------------------------------------------------------------------
 /// BLE macros
-#define BLE_PHYSICAL_CH    (0U)
+#define BLE_PHYSICAL_START_CH    (0U)
+#define BLE_PHYSICAL_END_CH      (39U)
 #define BLE_LOGICAL_CH     (37U)
 #define BLE_CRC_INIT       (0x555555)
 #define BLE_ACCESS_ADDRESS (0x12345678) //0x8E89BED6
@@ -66,7 +67,8 @@
 #define ADSTRUCT_TYPE_MANUFACTURER_SPECIFIC (0xFF)
 
 /// IEEE 802.15.4 macros
-#define IEEE802154_CHANNEL           (11U)    // 11 is the first 1st 2.4GHz channel
+#define IEEE802154_START_CHANNEL           (11U)    // 11 is the first 1st 2.4GHz channel
+#define IEEE802154_END_CHANNEL             (26U)    // 26 is the last 2.4GHz channel
 // Indicates the effective payload length excluding CRC (2 Bytes)
 #define IEEE802154_PAYLOAD_LEN_MAX   (116U)   // 127bytes - 2bytes (CRC) - 9bytes (Data Frame::MHR)
 #define IEEE802154_CRC_LENGTH        (2U)     // IEEE 802.15.4 CRC length is 2 bytes

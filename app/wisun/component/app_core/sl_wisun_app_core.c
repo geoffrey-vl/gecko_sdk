@@ -429,7 +429,6 @@ sl_status_t sl_wisun_app_core_get_state(uint32_t * const state)
   return SL_STATUS_OK;
 }
 
-
 sl_status_t sl_wisun_app_core_wait_state(const uint32_t state, const uint32_t timeout)
 {
   uint32_t ret = 0UL;
@@ -819,9 +818,15 @@ __STATIC_INLINE sl_status_t _app_wisun_regulation_setting(void)
       printf("[Failed: unable to set regulation: %lu]\n", ret);
     } else {
       switch (SL_WISUN_APP_CORE_REGULATION) {
-        case SL_WISUN_REGULATION_ARIB: regulation_name = "ARIB"; break;
+        case SL_WISUN_REGULATION_ARIB:
+          regulation_name = "ARIB";
+          break;
+        case SL_WISUN_REGULATION_WPC:
+          regulation_name = "WPC";
+          break;
         default:
           regulation_name = "UNKNOWN";
+          break;
       }
       printf("\n[Regional regulation set to %s]\n", regulation_name);
       _regional_regulation_active = true;

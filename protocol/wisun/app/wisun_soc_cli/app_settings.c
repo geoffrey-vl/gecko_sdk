@@ -147,7 +147,7 @@
 #define APP_SETTINGS_WISUN_DEFAULT_CRC_TYPE SL_WISUN_4_BYTES_CRC
 #define APP_SETTINGS_WISUN_DEFAULT_STF_LENGTH 4
 #define APP_SETTINGS_WISUN_DEFAULT_PREAMBLE_LENGTH 56
-#define APP_SETTINGS_WISUN_MAC_NEIGHBOR_TABLE_SIZE 22
+#define APP_SETTINGS_WISUN_NEIGHBOR_TABLE_SIZE 22
 
 #ifndef APP_SETTINGS_APP_DEFAULT_AUTOCONNECT
   #define APP_SETTINGS_APP_DEFAULT_AUTOCONNECT  0
@@ -233,7 +233,7 @@ static const app_settings_wisun_t app_settings_wisun_default = {
   .crc_type = APP_SETTINGS_WISUN_DEFAULT_CRC_TYPE,
   .stf_length = APP_SETTINGS_WISUN_DEFAULT_STF_LENGTH,
   .preamble_length = APP_SETTINGS_WISUN_DEFAULT_PREAMBLE_LENGTH,
-  .mac_neighbor_table_size = APP_SETTINGS_WISUN_MAC_NEIGHBOR_TABLE_SIZE,
+  .neighbor_table_size = APP_SETTINGS_WISUN_NEIGHBOR_TABLE_SIZE,
 };
 
 static const app_settings_ping_t app_settings_ping_default = {
@@ -483,12 +483,6 @@ static sl_status_t app_settings_get_broadcast_channel_mask_str(char *value_str,
 static sl_status_t app_settings_set_allowed_channels(const char *value_str,
                                                      const char *key_str,
                                                      const app_settings_entry_t *entry);
-static sl_status_t app_settings_set_neighbor_table_size(const char *value_str,
-                                                        const char *key_str,
-                                                        const app_settings_entry_t *entry);
-static sl_status_t app_settings_set_trace_filter(const char *value_str,
-                                                 const char *key_str,
-                                                 const app_settings_entry_t *entry);
 static sl_status_t app_settings_set_trace_filter(const char *value_str,
                                                  const char *key_str,
                                                  const app_settings_entry_t *entry);
@@ -1231,15 +1225,15 @@ const app_settings_entry_t app_settings_entries[] =
     .description = "Wi-SUN RPL information"
   },
   {
-    .key = "mac_neighbor_table_size",
+    .key = "neighbor_table_size",
     .domain = app_settings_domain_wisun,
     .value_size = APP_SETTINGS_VALUE_SIZE_UINT8,
     .input = APP_SETTINGS_INPUT_FLAG_DEFAULT,
     .output = APP_SETTINGS_OUTPUT_FLAG_DEFAULT,
-    .value = &app_settings_wisun.mac_neighbor_table_size,
+    .value = &app_settings_wisun.neighbor_table_size,
     .input_enum_list = NULL,
     .output_enum_list = NULL,
-    .set_handler = app_settings_set_neighbor_table_size,
+    .set_handler = app_settings_set_integer,
     .get_handler = app_settings_get_integer,
     .description = "Neighbor table size [uint8]"
   },
@@ -2800,21 +2794,6 @@ static sl_status_t app_settings_set_allowed_channels(const char *value_str,
   }
 
   return ret;
-}
-
-static sl_status_t app_settings_set_neighbor_table_size(const char *value_str,
-                                                        const char *key_str,
-                                                        const app_settings_entry_t *entry)
-{
-  sl_status_t ret;
-
-  ret = app_settings_set_integer(value_str, key_str, entry);
-
-  if (ret == SL_STATUS_OK) {
-    ret = sl_wisun_set_neighbor_table_size(app_settings_wisun.mac_neighbor_table_size);
-  }
-
-  return SL_STATUS_OK;
 }
 
 static sl_status_t app_settings_set_trace_filter(const char *value_str,

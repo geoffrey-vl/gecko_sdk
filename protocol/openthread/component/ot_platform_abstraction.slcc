@@ -32,20 +32,22 @@ config_file:
   - path: protocol/openthread/config/sl_openthread_rtos_config.h
     condition:
       - kernel
-    unless: ["matter_integration"] 
+    unless: ["matter_integration"]
   - path: protocol/openthread/config/sl_openthread_subghz_config.h
     condition:
       - hardware_board_supports_ot_subghz
 toolchain_settings:
   - option: gcc_compiler_option
-    value: "-Werror=unused-variable"
-  - option: gcc_compiler_option
     value: "-Werror=unused-function"
+  - option: gcc_compiler_option
+    value: "-Werror=unused-label"
+  - option: gcc_compiler_option
+    value: "-Werror=unused-variable"
   - option: preinclude
     value: sl_openthread_rtos_config.h
     condition:
       - kernel
-    unless: ["matter_integration"]  
+    unless: ["matter_integration"]
   - option: preinclude
     value: sl_openthread_subghz_config.h
     condition:
@@ -53,15 +55,15 @@ toolchain_settings:
 include:
   - path: protocol/openthread/platform-abstraction/rtos
     condition:
-      - kernel    
-    unless: ["matter_integration"] 
+      - kernel
+    unless: ["matter_integration"]
     file_list:
       - path: sl_ot_rtos_adaptation.h
 source:
   - path: protocol/openthread/platform-abstraction/rtos/sl_ot_rtos_adaptation.c
     condition:
       - kernel
-    unless: ["matter_integration"]  
+    unless: ["matter_integration"]
 library:
   - path: "protocol/openthread/libs/libsl_openthread_efr32mg1x_gcc.a"
     condition:
@@ -80,7 +82,7 @@ define:
     value: 1
     condition:
       - freertos
-    unless: ["matter_integration"]  
+    unless: ["matter_integration"]
   - name: OPENTHREAD_CONFIG_PLATFORM_RADIO_COEX_ENABLE
     value: 1
     condition:
@@ -97,7 +99,7 @@ template_contribution:
       handler: sl_ot_rtos_init
     condition:
       - kernel
-    unless: ["matter_integration"]  
+    unless: ["matter_integration"]
   - name: ot_init
     value: sl_ot_create_instance
     priority: 0

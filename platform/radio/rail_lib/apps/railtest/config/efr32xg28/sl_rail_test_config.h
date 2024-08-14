@@ -39,20 +39,20 @@
 #define SL_RAIL_TEST_APP_NAME  "RAILtest"
 
 // <o SL_RAIL_TEST_MAX_PACKET_LENGTH> Maximum packet length
-// <i> Default: 1024
-#define SL_RAIL_TEST_MAX_PACKET_LENGTH  1024
+// <i> Default: 2058
+#define SL_RAIL_TEST_MAX_PACKET_LENGTH  2058
 
 // <o SL_RAIL_TEST_CONTINUOUS_TRANSFER_PERIOD> Continuous transfer period
 // <i> Default: 250
 #define SL_RAIL_TEST_CONTINUOUS_TRANSFER_PERIOD  250
 
 // <o SL_RAIL_TEST_TX_BUFFER_SIZE> Transmit buffer size
-// <i> Default: 512
-#define SL_RAIL_TEST_TX_BUFFER_SIZE  512
+// <i> Default: 4096
+#define SL_RAIL_TEST_TX_BUFFER_SIZE  4096
 
 // <o SL_RAIL_TEST_RX_BUFFER_SIZE> Receive buffer size
-// <i> Default: 512
-#define SL_RAIL_TEST_RX_BUFFER_SIZE  512
+// <i> Default: 4096
+#define SL_RAIL_TEST_RX_BUFFER_SIZE  4096
 
 // <o SL_RAIL_TEST_BUTTON_LONG_HOLD_DURATION_MS> Button Long Press Duration (milliseconds)
 // <i> Default: 1000

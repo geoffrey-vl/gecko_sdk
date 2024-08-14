@@ -281,6 +281,30 @@ int8_t mfglibGetSynOffset(void);
  */
 void mfglibTestContModCal(uint8_t channel, uint32_t duration);
 
+/** @brief Change the CTUNE value.
+ *
+ * This function will idle the radio if mfglib has been started,
+ * then set the CTUNE value as desired. mfglib is then restarted
+ * to take effect of this new change.
+ *
+ * @appusage Use this function to change CTUNE value.
+ *
+ * @param ctune Valid range of a CTUNE values is between 0x0000 - 0x01FF.
+ *
+ * @return One of the following:
+ * - ::EMBER_SUCCESS            if CTUNE value has been set.
+ * - ::EMBER_BAD_ARGUMENT       if CTUNE value is invalid.
+ * - ::EMBER_ERR_FATAL          if mfglib could not be re-started.*/
+EmberStatus mfglibSetCtune(uint16_t ctune);
+
+/** @brief Return the current CTUNE value, as previously
+ * set via mfglibSetCtune().
+ *
+ * @appusage Use this function to get current CTUNE value.
+ *
+ * @return Current CTUNE value. If value is 0xFFFF, CTUNE is not available due to missing mfglib support.*/
+uint16_t mfglibGetCtune(void);
+
 /** @} */ // end of name API
 
 /** @} */ // end of mfglib

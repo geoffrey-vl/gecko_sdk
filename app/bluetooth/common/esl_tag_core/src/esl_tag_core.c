@@ -760,10 +760,9 @@ static void esl_state_configuring_handler(sl_bt_msg_t *evt)
                             ESL_LOG_LEVEL_INFO,
                             "Write AP Response Key Material");
 
-              // get new randomizer value whenever the Response Key Material is written
-              (void)app_scheduler_add(&esl_core_async_randomizer, 0, 0, NULL);
-
               if (overall_size == SL_BT_EAD_KEY_MATERIAL_SIZE) {
+                // get new randomizer value whenever the Response Key Material is written
+                (void)app_scheduler_add(&esl_core_async_randomizer, 0, 0, NULL);
                 esl_tag.config_status |= execute_write_flag;
                 break;
               }

@@ -31,8 +31,8 @@
  * @brief This file implements Green Power interface.
  ******************************************************************************/
 
-#ifndef SL_RCP_GP_INTERFACE_H_
-#define SL_RCP_GP_INTERFACE_H_
+#ifndef SL_GP_INTERFACE_H_
+#define SL_GP_INTERFACE_H_
 
 #include <stdbool.h>
 #include <openthread/platform/radio.h>
@@ -48,28 +48,9 @@ typedef enum
 } sl_gp_state_t;
 
 /**
- * This function returns if the given frame is a GP frame.
- *
- * @param[in]  aFrame       A pointer to the MAC frame buffer.
- * @param[in]  isRxFrame    If the give frame is a incoming or outgoing frame.
- *
- * @retval  true    Frame is a GP packet.
- * @retval  false   Frame is not a GP packet.
- */
-bool sl_gp_intf_is_gp_pkt(otRadioFrame *aFrame, bool isRxFrame);
-
-/**
- * This function stores the provided packet in global memory, to be sent as
- * a response for specific incoming packet.
- *
- * @param[in]  aFrame       A pointer to the MAC frame buffer.
- */
-void sl_gp_intf_buffer_pkt(otRadioFrame *aFrame);
-
-/**
  * This function returns current state of GP state machine.
  *
- * @retval  true    Status of GP state machine.
+ * @retval  Status of GP state machine.
  */
 sl_gp_state_t sl_gp_intf_get_state(void);
 
@@ -78,4 +59,35 @@ sl_gp_state_t sl_gp_intf_get_state(void);
  *
  */
 void efr32GpProcess(void);
+
+/**
+ * This function stores the provided packet in global memory, to be sent as
+ * a response for specific incoming packet.
+ *
+ * @param[in]  aInstance    A pointer to the OpenThread instance structure.
+ */
+void sl_gp_intf_buffer_pkt(otInstance *aInstance);
+
+/**
+ * This function returns if the given frame is a GP frame and should be buffered
+ *
+ * @param[in]  aInstance    A pointer to the OpenThread instance structure.
+ * @param[in]  aFrame       A pointer to the MAC frame buffer.
+ * @param[in]  isRxFrame    If the give frame is a incoming or outgoing frame.
+ *
+ * @retval  true    Frame should be buffered
+ * @retval  false   Frame should not be buffered
+ */
+bool sl_gp_intf_should_buffer_pkt(otInstance *aInstance, otRadioFrame *aFrame, bool isRxFrame);
+
+/**
+ * This function returns if the given frame is a GP frame.
+ *
+ * @param[in]  aFrame       A pointer to the MAC frame buffer.
+ *
+ * @retval  true    Frame is a GP packet.
+ * @retval  false   Frame is not a GP packet.
+ */
+bool sl_gp_intf_is_gp_pkt(otRadioFrame *aFrame);
+
 #endif

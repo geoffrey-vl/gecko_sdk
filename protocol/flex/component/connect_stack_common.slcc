@@ -84,6 +84,7 @@ source:
       - path: "stack/config/ember-configuration.c"
       - path: "stack/config/stack-stubs.c"
       - path: "stack/config/stack-callback-stubs.c"
+      - path: "stack/framework/sl-connect-info.c"
       - path: "stack/framework/sli-connect-random.c"
       - path: "stack/framework/sl-connect-power-manager.c"
         condition:

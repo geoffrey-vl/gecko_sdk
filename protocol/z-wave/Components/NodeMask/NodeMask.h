@@ -22,9 +22,15 @@
 #define MAX_NODEMASK_LENGTH       (ZW_MAX_NODES/NODEMASK_NODES_PER_BYTE)
 /// Max length of Long Range node mask
 #define MAX_LR_NODEMASK_LENGTH    (ZW_MAX_NODES_LR/NODEMASK_NODES_PER_BYTE)
+/// Max length of Long Range node mask in NVM
+#define MAX_NVM_LR_NODEMASK_LENGTH    (ZW_MAX_NVM_NODES_LR/NODEMASK_NODES_PER_BYTE)
+#if ZW_MAX_NODES_LR > ZW_MAX_NVM_NODES_LR
+#error size of node_info_Lrange_exists must be updated. !! Need a migration script !!
+#endif
 
 typedef uint8_t NODE_MASK_TYPE[MAX_NODEMASK_LENGTH];
 typedef uint8_t LR_NODE_MASK_TYPE[MAX_LR_NODEMASK_LENGTH];
+typedef uint8_t NVM_LR_NODE_MASK_TYPE[MAX_NVM_LR_NODEMASK_LENGTH];
 
 typedef struct {
   NODE_MASK_TYPE      nodeMask;     ///< List of Z-Wave nodes.

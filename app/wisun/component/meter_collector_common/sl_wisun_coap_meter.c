@@ -197,8 +197,10 @@ static sl_wisun_coap_packet_t dummy_req_pkt = {
 // -----------------------------------------------------------------------------
 void sl_wisun_coap_meter_init(void)
 {
+#if SL_WISUN_COAP_MC_OPTIMIZED_MODE_ENABLE
   // init meter for having proper meter content
   sl_wisun_meter_init();
+#endif
 
   // Init meter-collector common component
 #if !defined(SL_CATALOG_TEMP_SENSOR_PRESENT)

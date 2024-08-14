@@ -106,6 +106,16 @@ zpal_pm_handle_t zpal_pm_register(zpal_pm_type_t type);
 void zpal_pm_stay_awake(zpal_pm_handle_t handle, uint32_t timeout_milliseconds);
 
 /**
+* @brief Checks if a lock is active or not.
+* If @p handle points to NULL, returns false.
+*
+* @param[in] handle Power lock handle registered by @ref zpal_pm_register().
+* @return true if PowerLock is active, false otherwise.
+*/
+
+bool zpal_pm_is_active(zpal_pm_handle_t handle);
+
+/**
 * @brief Cancels an active power lock.
 * If @p handle points to NULL or inactive power lock, nothing happens.
 *

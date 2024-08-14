@@ -1674,11 +1674,11 @@ otError otPlatRadioTransmit(otInstance *aInstance, otRadioFrame *aFrame)
     otError          error = OT_ERROR_NONE;
     int8_t           txPower = sli_get_max_tx_power_across_iids();
 
-#if OPENTHREAD_RADIO && OPENTHREAD_CONFIG_MULTIPAN_RCP_ENABLE == 1 && (defined SL_CATALOG_OT_RCP_GP_INTERFACE_PRESENT)
+#if OPENTHREAD_RADIO && OPENTHREAD_CONFIG_MULTIPAN_RCP_ENABLE == 1
     // Accept GP packets even if radio is not in required state.
-    if ((sl_gp_intf_get_state() != SL_GP_STATE_SEND_RESPONSE) && sl_gp_intf_is_gp_pkt(aFrame, false))
+    if ((sl_gp_intf_get_state() != SL_GP_STATE_SEND_RESPONSE) && sl_gp_intf_should_buffer_pkt(aInstance, aFrame, false))
     {
-        sl_gp_intf_buffer_pkt(aFrame);
+        sl_gp_intf_buffer_pkt(aInstance);
     }
     else
 #endif
@@ -3339,7 +3339,7 @@ static void processNextRxPacket(otInstance *aInstance)
 #endif
         {
 #if OPENTHREAD_RADIO && OPENTHREAD_CONFIG_MULTIPAN_RCP_ENABLE == 1 && (defined SL_CATALOG_OT_RCP_GP_INTERFACE_PRESENT)
-            (void) sl_gp_intf_is_gp_pkt(&sReceiveFrame, true);
+            (void) sl_gp_intf_should_buffer_pkt(aInstance, &sReceiveFrame, true);
 #endif
             otPlatRadioReceiveDone(aInstance, &sReceiveFrame, sReceiveError);
 #if RADIO_CONFIG_DEBUG_COUNTERS_SUPPORT

@@ -7,6 +7,7 @@
 #include "zaf_protocol_config.h"
 //#define DEBUGPRINT
 #include "DebugPrint.h"
+#include "zpal_radio.h"
 
 static SApplicationHandles * m_pAppHandles;
 static zpal_pm_handle_t m_PowerLock;
@@ -131,14 +132,7 @@ EInclusionMode_t ZAF_GetInclusionMode(void)
 
 bool isRfRegionValid(zpal_radio_region_t region)
 {
-  if (REGION_US_LR >= region ||
-      REGION_US_LR_END_DEVICE == region ||
-      REGION_JP == region ||
-      REGION_KR == region) {
-    return true;
-  } else {
-    return false;
-  }
+  return zpal_radio_is_region_supported(region);
 }
 
 void zaf_set_stay_awake_callback(zaf_wake_up_callback_t callback) {

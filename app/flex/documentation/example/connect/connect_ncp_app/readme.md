@@ -21,6 +21,8 @@ daemon* and the *Connect Host Library*.
 *Connect NCP* can be customized, but generally the only modifications needed are
 the PHY configuration and the pin configuration.
 
+This application requires a bootloader to be flashed on the SoC. If you wish to use this application without a bootloader, you need to remove the *bootloader_interface* component or the app will fail on series 2 devices. If you are using *SLC CLI* to generate the project, use the `--without=bootloader_interface` argument.
+
 ## Usage
 
 The example NCP application provides the same functionality as *Connect - SoC

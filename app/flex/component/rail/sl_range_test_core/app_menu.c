@@ -736,6 +736,9 @@ static bool menu_set_channel(bool init)
     }
 #endif
   } else {
+    if (!init) {
+      range_test_settings.channel++;
+    }
     set_standard_phy_channel();
   }
 

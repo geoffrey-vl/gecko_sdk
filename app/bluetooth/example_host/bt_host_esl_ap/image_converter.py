@@ -194,10 +194,14 @@ class XbmConverter:
                 bitflip = True  # only WSTK memory LCD needs bit flipping
         else:
             image_palette = self.DISPLAY_EPD_PALETTE
+
+        color_count = int(len(image_palette) // 3)
+        color_max_index = color_count - 1
+
         # create the quantizer base object
         pal_image = Image.new("P", (1, len(image_palette) // 3))
         pal_image.putpalette(
-            image_palette + image_palette[0:3] * (256 - int(len(image_palette) // 3))
+            image_palette + image_palette[0:3] * (256 - color_count)
         )
 
         # get a font
@@ -237,8 +241,6 @@ class XbmConverter:
         except:
             self.log.error("Cannot quantize image!")
             return None
-        color_count = len(display_image.getcolors())
-        color_max_index = color_count - 1
         # get a drawing context
         if label is not None:
             dc = ImageDraw.Draw(display_image)

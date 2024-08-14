@@ -7,6 +7,8 @@ This Python example implements the functionality of an Access Point as specified
 - Transfer images to Tags via Object Transfer Service (OTS)
 - Sending commands to Tags either via Periodic Advertisements with Responses or to the ESL Control Point
 
+Please refer to our [Application Note 1419](https://www.silabs.com/documents/public/application-notes/an1419-ble-electronic-shelf-label.pdf) for full details of setting up and using the ESL network, including detailed usage examples and demo.
+
 Table of content:
 - [ESL Access Point](#esl-access-point)
   - [Features](#features)

@@ -1395,7 +1395,7 @@ static void sli_zigbee_direct_join_network_write(uint8_t connection, uint8array 
   current_state = JOIN_NWK_WRITE;
   current_connection = connection;
   current_writeValue = writeValue;
-  ATOMIC(sl_zigbee_event_set_delay_ms(&zb_stack_event, 5); );
+  sl_zigbee_event_set_delay_ms(&zb_stack_event, 5);
   sl_zigbee_common_rtos_wakeup_stack_task();
   return;
 
@@ -1532,7 +1532,7 @@ static void sli_zigbee_direct_form_network_write(uint8_t connection, uint8array 
   current_connection = connection;
   current_writeValue = writeValue;
   sl_zigbee_common_rtos_wakeup_stack_task();
-  ATOMIC(sl_zigbee_event_set_active(&zb_stack_event); );
+  sl_zigbee_event_set_active(&zb_stack_event);
 
   return;
 
@@ -1559,7 +1559,7 @@ static void sli_zigbee_direct_identify_write(uint8_t connection, uint8array *wri
   current_state = IDENTIFY_WRITE;
   current_connection = connection;
   current_writeValue = writeValue;
-  ATOMIC(sl_zigbee_event_set_delay_ms(&zb_stack_event, 5); );
+  sl_zigbee_event_set_delay_ms(&zb_stack_event, 5);
   sl_zigbee_common_rtos_wakeup_stack_task();
   return;
 
@@ -1600,7 +1600,7 @@ static void sli_zigbee_direct_manage_joiners_write(uint8_t connection, uint8arra
   current_state = MANAGE_JOINERS_WRITE;
   current_connection = connection;
   current_writeValue = writeValue;
-  ATOMIC(sl_zigbee_event_set_delay_ms(&zb_stack_event, 5); );
+  sl_zigbee_event_set_delay_ms(&zb_stack_event, 5);
   sl_zigbee_common_rtos_wakeup_stack_task();
   return;
 
@@ -1631,7 +1631,7 @@ static void sli_zigbee_direct_finding_binding_write(uint8_t connection, uint8arr
   current_state = BINDING_WRITE;
   current_connection = connection;
   current_writeValue = writeValue;
-  ATOMIC(sl_zigbee_event_set_delay_ms(&zb_stack_event, 5); );
+  sl_zigbee_event_set_delay_ms(&zb_stack_event, 5);
   sl_zigbee_common_rtos_wakeup_stack_task();
   return;
 
@@ -1649,7 +1649,7 @@ static void sli_zigbee_direct_authenticate_write_25519(uint8_t connection, uint8
   current_state = C25519_WRITE;
   current_connection = connection;
   current_writeValue = writeValue;
-  ATOMIC(sl_zigbee_event_set_delay_ms(&zb_stack_event, 10); );
+  sl_zigbee_event_set_delay_ms(&zb_stack_event, 10);
   sl_zigbee_common_rtos_wakeup_stack_task();
 }
 #endif // SL_CATALOG_ZIGBEE_DIRECT_SECURITY_CURVE25519_PRESENT
@@ -1661,7 +1661,7 @@ static void sli_zigbee_direct_authenticate_write_p256(uint8_t connection, uint8a
   current_state = P256_WRITE;
   current_connection = connection;
   current_writeValue = writeValue;
-  ATOMIC(sl_zigbee_event_set_delay_ms(&zb_stack_event, 10); );
+  sl_zigbee_event_set_delay_ms(&zb_stack_event, 10);
   sl_zigbee_common_rtos_wakeup_stack_task();
 }
 #endif // SL_CATALOG_ZIGBEE_DIRECT_SECURITY_P256_PRESENT

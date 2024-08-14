@@ -83,6 +83,10 @@ void* esl_core_encrypt_message(void *msg, uint8_t *len)
     status = sl_bt_ead_pack_ad_data(&ad_info, len, cipher_message_buffer);
   }
 
+  // Sanitize key material and nonce on stack
+  memset(&key_material, 0, sizeof(key_material));
+  memset(&nonce, 0, sizeof(nonce));
+
   if (status == SL_STATUS_OK) {
     ret_val = cipher_message_buffer;
   }
@@ -102,6 +106,8 @@ void* esl_core_decrypt_message(void *msg, uint8_t *len)
 
     if (status == SL_STATUS_OK) {
       status = sl_bt_ead_unpack_decrypt(&key_material, &data, len);
+      // Sanitize key material
+      memset(&key_material, 0, sizeof(key_material));
     }
 
     if (status == SL_STATUS_OK) {

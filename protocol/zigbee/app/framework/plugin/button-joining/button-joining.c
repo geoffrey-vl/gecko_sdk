@@ -65,10 +65,10 @@ void sli_zigbee_af_button_joining_init_callback(uint8_t init_level)
 {
   (void)init_level;
 
-  sl_zigbee_event_init(&emberAfPluginButtonJoiningButton0Event,
-                       emberAfPluginButtonJoiningButton0EventHandler);
-  sl_zigbee_event_init(&emberAfPluginButtonJoiningButton1Event,
-                       emberAfPluginButtonJoiningButton1EventHandler);
+  sl_zigbee_af_isr_event_init(&emberAfPluginButtonJoiningButton0Event,
+                              emberAfPluginButtonJoiningButton0EventHandler);
+  sl_zigbee_af_isr_event_init(&emberAfPluginButtonJoiningButton1Event,
+                              emberAfPluginButtonJoiningButton1EventHandler);
 }
 
 void emberAfPluginButtonJoiningButton0EventHandler(sl_zigbee_event_t * event)

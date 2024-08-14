@@ -100,7 +100,7 @@ configuration:
     value: "3"
   - name: SL_BT_CONFIG_MAX_PERIODIC_ADVERTISERS
     value: "2"
-  - name: SL_BT_CONFIG_MAX_ADVERTISED_DATA_LENGTH_HINT
+  - name: SL_BT_CONFIG_MAX_PAWR_ADVERTISED_DATA_LENGTH_HINT
     value: "74"
   - name: SL_BT_CONFIG_MAX_PAWR_ADVERTISERS
     value: "2"

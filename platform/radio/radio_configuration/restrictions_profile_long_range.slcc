@@ -22,6 +22,7 @@ config_file:
     directory: rail
     unless:
       - device_sdid_200
+      - device_is_module
 
 #-------- Hides Component for user in Studio ---------
 ui_hints:

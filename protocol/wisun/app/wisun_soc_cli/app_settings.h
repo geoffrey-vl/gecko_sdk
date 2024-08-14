@@ -72,7 +72,7 @@ typedef struct {
   uint8_t crc_type;
   uint8_t preamble_length;
   uint8_t stf_length;
-  uint8_t mac_neighbor_table_size;
+  uint8_t neighbor_table_size;
 } app_settings_wisun_t;
 
 typedef struct {

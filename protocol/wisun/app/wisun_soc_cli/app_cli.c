@@ -995,6 +995,12 @@ static void app_join(sl_wisun_phy_config_type_t phy_config_type)
     goto cleanup;
   }
 
+  ret = sl_wisun_set_neighbor_table_size(app_settings_wisun.neighbor_table_size);
+  if (ret != SL_STATUS_OK) {
+    printf("[Failed: unable to set neighbor table size: %lu]\r\n", ret);
+    goto cleanup;
+  }
+
   if (app_settings_wisun.device_type == SL_WISUN_LFN) {
     switch (app_settings_wisun.lfn_profile) {
       case SL_WISUN_LFN_PROFILE_TEST:

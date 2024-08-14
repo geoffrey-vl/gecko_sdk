@@ -52,7 +52,7 @@ extern EmberEventQueue sli_zigbee_af_app_event_queue;
  * @return uint32_t The number of milliseconds until the next event or
  * maxMs if no event is scheduled before then.
  */
-#define emberAfMsToNextEvent(maxMs) emberMsToNextQueueEvent(&sli_zigbee_af_app_event_queue)
+#define emberAfMsToNextEvent(maxMs) sli_zigbee_af_ms_to_next_event()
 
 /**
  * @brief This is the same as the function emberAfMsToNextEvent() with the

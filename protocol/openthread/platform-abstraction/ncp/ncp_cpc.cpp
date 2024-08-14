@@ -199,9 +199,6 @@ void NcpCPC::HandleSendDone(void)
 {
     mIsWriting = false;
     memset(mCpcTxBuffer, 0, sizeof(mCpcTxBuffer));
-
-    if (!mTxFrameBuffer.IsEmpty())
-        mCpcSendTask.Post();
 }
 
 void NcpCPC::HandleCPCReceive(sl_cpc_user_endpoint_id_t endpoint_id, void *arg)

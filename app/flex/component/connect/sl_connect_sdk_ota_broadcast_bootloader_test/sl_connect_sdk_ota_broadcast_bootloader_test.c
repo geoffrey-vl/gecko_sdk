@@ -31,11 +31,19 @@
 //                                   Includes
 // -----------------------------------------------------------------------------
 #include PLATFORM_HEADER
+#include "sl_component_catalog.h"
 #include "stack/include/ember.h"
 #include "sl_connect_sdk_ota_bootloader_test_common.h"
-#include "app_log.h"
 #include "sl_cli.h"
 #include "sl_connect_sdk_btl-interface.h"
+#ifdef SL_CATALOG_APP_LOG_PRESENT
+#include "app_log.h"
+#else
+#include <stdio.h>
+#define app_log_info(...) printf(__VA_ARGS__)
+#define app_log_error(...) printf(__VA_ARGS__)
+#define app_log_warning(...) printf(__VA_ARGS__)
+#endif
 
 #if defined(SL_CATALOG_CONNECT_OTA_BROADCAST_BOOTLOADER_SERVER_PRESENT)
 #include "ota-broadcast-bootloader-server.h"

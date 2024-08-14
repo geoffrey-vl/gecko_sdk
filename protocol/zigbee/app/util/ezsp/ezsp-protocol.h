@@ -33,7 +33,7 @@
 #define EZSP_PROTOCOL_VERSION     0x0D
 
 // EZSP max length + Frame Control extra byte + Frame ID extra byte
-#define EZSP_MAX_FRAME_LENGTH     (200 + 1 + 1)
+#define EZSP_MAX_FRAME_LENGTH     (218 + 1 + 1)
 
 // EZSP Sequence Index for both legacy and extended frame format
 #define EZSP_SEQUENCE_INDEX       0

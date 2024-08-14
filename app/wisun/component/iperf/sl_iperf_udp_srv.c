@@ -196,8 +196,8 @@ void sl_iperf_test_udp_server(sl_iperf_test_t * test)
 
     _iperf_calc_jitter(test);
 
-    // 1. First paket received
-    if (test->statistic.nbr_rcv_snt_packets == 1U && pkt_id == 1) {
+    // 1. First packet received
+    if (test->statistic.nbr_rcv_snt_packets == 1U) {
       sl_iperf_test_print_udp_conn_str(test);
       sl_iperf_test_print_udp_srv_report_hdr(test);
       sl_iperf_test_log_verbose(test, "UDP Server: first packet received.\n");

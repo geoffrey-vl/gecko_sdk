@@ -133,7 +133,7 @@ static void button_event_handler(sl_zigbee_event_t *event)
 void emberAfMainInitCallback(void)
 {
   #if defined(SL_CATALOG_SIMPLE_BUTTON_PRESENT)
-  sl_zigbee_event_init(&button_event, button_event_handler);
+  sl_zigbee_af_isr_event_init(&button_event, button_event_handler);
   #endif // SL_CATALOG_SIMPLE_BUTTON_PRESENT
 }
 

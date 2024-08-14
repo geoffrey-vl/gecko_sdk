@@ -28,7 +28,11 @@
 
 /** Max number of Long Range nodes in a Z-wave system
  * Must not be higher than 4000 according to specs */
-#define ZW_MAX_NODES_LR    1024
+#define ZW_MAX_NODES_LR    256
+/** count of LR nodes stored in NVM.
+This value could not be changed without a migration script.
+Use different definitions for RAM & ROM in order to save on some release/part but keeping a compatible NVM.*/
+#define ZW_MAX_NVM_NODES_LR 1024
 
 #define LOWEST_LONG_RANGE_NODE_ID   (0x0100)
 

@@ -3,6 +3,15 @@
 The changes described in this file will possibly break the build and/or functionality of an
 existing application. The description serves the purpose of helping to fix the failing build.
 
+# 7.21.4 {#section-7-21-4}
+
+## MAX Number of LR Nodes
+Max number of Long Range Nodes has been lowered from 1024 to 256 in this release to reduce RAM usage. 
+The modification only affects the RAM usage and the space reserved in NVM is still large enough to store 1024 nodes to avoid needing a specific migration script. 
+
+## New serial API commands
+Add new serial API commands: Z-Wave API Setup Get Supported Regions Sub Command (0x15) & Z-Wave API Setup Regions Info (0x16).
+
 # 7.21.2 {#section-7-21-2}
 
 ## Fix migration process from 7.17 to 7.18+

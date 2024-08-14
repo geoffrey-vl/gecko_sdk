@@ -9,6 +9,7 @@ provides:
   - name: ot_platform_abstraction_implementation
 requires:
   - name: security_manager
+  - name: ot_rcp_gp_interface
 ui_hints:
   visibility: never
 include:
@@ -45,7 +46,7 @@ source:
       - path: protocol/openthread/platform-abstraction/efr32/entropy.c
       - path: protocol/openthread/platform-abstraction/efr32/flash.c
       - path: protocol/openthread/platform-abstraction/efr32/memory.c
-        unless: ["matter_integration"]      
+        unless: ["matter_integration"]
       - path: protocol/openthread/platform-abstraction/efr32/misc.c
       - path: protocol/openthread/platform-abstraction/efr32/crypto.c
       - path: protocol/openthread/platform-abstraction/efr32/ieee802154-packet-utils.cpp

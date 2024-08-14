@@ -558,6 +558,8 @@ SL_PACK_END()
 
 /** @} (end SL_WISUN_MSG_LFN_MULTICAST_REG_IND) */
 
+/** @} (end SL_WISUN_MSG_DHCP_VENDOR_DATA_IND) */
+
 /**************************************************************************//**
  * @defgroup SL_WISUN_MSG_DHCP_VENDOR_DATA_IND sl_wisun_msg_dhcp_vendor_data_ind
  * @{

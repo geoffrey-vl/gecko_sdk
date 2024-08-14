@@ -152,28 +152,6 @@ include:
 # move it in with lower-mac-spinel at the minimum.
   - path: protocol/zigbee/app/zigbeed
 
-# for openthread/src/posix/platform
-  - path: util/third_party/openthread/src
-    file_list:
-      - path: core/common/code_utils.hpp
-      - path: core/common/encoding.hpp
-      - path: core/radio/max_power_table.hpp
-      - path: lib/spinel/multi_frame_buffer.hpp
-      - path: lib/spinel/openthread-spinel-config.h
-      - path: lib/spinel/radio_spinel.hpp
-      - path: lib/spinel/spi_frame.hpp
-      - path: lib/spinel/spinel_decoder.hpp
-      - path: ncp/ncp_config.h
-      - path: posix/platform/daemon.hpp
-      - path: posix/platform/firewall.hpp
-      - path: posix/platform/infra_if.hpp
-      - path: posix/platform/mainloop.hpp
-      - path: posix/platform/radio.hpp
-      - path: posix/platform/radio_url.hpp
-      - path: posix/platform/resolver.hpp
-      - path: posix/platform/system.hpp
-      - path: posix/platform/udp.hpp
-
 source:
 
 # Posix Stubs
@@ -192,19 +170,6 @@ source:
   - path: platform/service/legacy_hal/src/crc.c
   # not brought in by default, since this component provides zigbee_debug_basic
   - path: protocol/zigbee/stack/framework/debug-stub.c
-
-# OT source 
-  - path: util/third_party/openthread/src/lib/spinel/radio_spinel.cpp
-  - path: util/third_party/openthread/src/posix/platform/alarm.cpp
-  - path: util/third_party/openthread/src/posix/platform/backtrace.cpp
-  - path: util/third_party/openthread/src/posix/platform/entropy.cpp
-  - path: util/third_party/openthread/src/posix/platform/logging.cpp
-  - path: util/third_party/openthread/src/posix/platform/memory.cpp
-  - path: util/third_party/openthread/src/posix/platform/mainloop.cpp
-  - path: util/third_party/openthread/src/posix/platform/radio.cpp
-  - path: util/third_party/openthread/src/posix/platform/radio_url.cpp
-  - path: util/third_party/openthread/src/posix/platform/resolver.cpp
-  - path: util/third_party/openthread/src/posix/platform/system.cpp
 
 define:
   - name: UNIX_HOST

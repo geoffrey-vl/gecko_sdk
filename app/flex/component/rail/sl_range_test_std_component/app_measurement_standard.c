@@ -537,11 +537,9 @@ void print_standard_name(char *print_buffer)
   if (current_phy_standard_value() == IEEE802154_250KBPS) {
 #if RAIL_SUPPORTS_PROTOCOL_IEEE802154
     snprintf(print_buffer, 15, "IEEE 802.15.4");
-    range_test_settings.channel = IEEE802154_CHANNEL;
 #endif
   } else if (current_phy_standard_value() == IEEE802154_250KBPS_ANTDIV) {
     snprintf(print_buffer, 16, "IEEE 802.ANTDIV");
-    range_test_settings.channel = IEEE802154_CHANNEL;
   } else {
     switch (current_phy_standard_value()) {
 #if RAIL_BLE_SUPPORTS_CODED_PHY
@@ -563,7 +561,6 @@ void print_standard_name(char *print_buffer)
         break;
 #endif
     }
-    range_test_settings.channel = BLE_PHYSICAL_CH;
   }
 }
 
@@ -577,9 +574,13 @@ void print_standard_name(char *print_buffer)
 void set_standard_phy_channel(void)
 {
   if (current_phy_standard_value() == IEEE802154_250KBPS || current_phy_standard_value() == IEEE802154_250KBPS_ANTDIV) {
-    range_test_settings.channel = IEEE802154_CHANNEL;
+    if (range_test_settings.channel > IEEE802154_END_CHANNEL) {
+      range_test_settings.channel = IEEE802154_START_CHANNEL;
+    }
   } else {
-    range_test_settings.channel = BLE_PHYSICAL_CH;
+    if (range_test_settings.channel > BLE_PHYSICAL_END_CH) {
+      range_test_settings.channel = BLE_PHYSICAL_START_CH;
+    }
   }
 }
 
@@ -846,11 +847,11 @@ void get_rail_standard_config_data(uint32_t *base_frequency, uint32_t *channel_s
 void get_rail_standard_channel_range(uint16_t *min, uint16_t *max)
 {
   if (current_phy_standard_value() == IEEE802154_250KBPS || current_phy_standard_value() == IEEE802154_250KBPS_ANTDIV) {
-    *min = IEEE802154_CHANNEL;
-    *max = IEEE802154_CHANNEL;
+    *min = IEEE802154_START_CHANNEL;
+    *max = IEEE802154_END_CHANNEL;
   } else {
-    *min = BLE_PHYSICAL_CH;
-    *max = BLE_PHYSICAL_CH;
+    *min = BLE_PHYSICAL_START_CH;
+    *max = BLE_PHYSICAL_END_CH;
   }
 }
 

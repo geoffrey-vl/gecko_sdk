@@ -1639,6 +1639,18 @@ static bool end_of_payload_xfer(void)
   LOGIC_ANALYZER_TRACE_PAYLOAD_TRANSFER_ISR_END;
 
   if (LDMA_TransferDone(rx_dma_channel)) {
+    // Make sure to clear the DMA IRQ flag here. If the header arrived during the
+    // execution of the handler, the IRQ flag will be set from the RX header descriptor
+    // completing. If this happens, the handler will execute once more as though
+    // a payload was received, when in fact it was the header that caused the flag
+    // to be set. In other words, in order to avoid IRQ handler re-entry and an
+    // eventual de-sync, make sure we clear the IRQ flag, because the header
+    // reception has already been handled.
+    #if defined (LDMA_HAS_SET_CLEAR)
+    LDMA->IF_CLR = (1 << rx_dma_channel);
+    #else
+    LDMA->IFC = (1 << rx_dma_channel);
+    #endif
     MCU_EXIT_ATOMIC();
     return true;
   } else {

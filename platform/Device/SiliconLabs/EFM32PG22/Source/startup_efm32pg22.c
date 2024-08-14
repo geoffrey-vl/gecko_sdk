@@ -226,37 +226,37 @@ const tVectorEntry __VECTOR_TABLE[TOTAL_INTERRUPTS] __VECTOR_TABLE_ATTRIBUTE = {
   { SysTick_Handler },                         /*      -1 SysTick Handler        */
 
   /* External interrupts */
-  { CRYPTOACC_IRQHandler },                        /* -16 = CRYPTOACC */
-  { TRNG_IRQHandler },                             /* -15 = TRNG */
-  { PKE_IRQHandler },                              /* -14 = PKE */
-  { SMU_SECURE_IRQHandler },                       /* -13 = SMU_SECURE */
-  { SMU_S_PRIVILEGED_IRQHandler },                 /* -12 = SMU_S_PRIVILEGED */
-  { SMU_NS_PRIVILEGED_IRQHandler },                /* -11 = SMU_NS_PRIVILEGED */
-  { EMU_IRQHandler },                              /* -10 = EMU */
-  { TIMER0_IRQHandler },                           /* -9 = TIMER0 */
-  { TIMER1_IRQHandler },                           /* -8 = TIMER1 */
-  { TIMER2_IRQHandler },                           /* -7 = TIMER2 */
-  { TIMER3_IRQHandler },                           /* -6 = TIMER3 */
-  { TIMER4_IRQHandler },                           /* -5 = TIMER4 */
-  { RTCC_IRQHandler },                             /* -4 = RTCC */
-  { USART0_RX_IRQHandler },                        /* -3 = USART0_RX */
-  { USART0_TX_IRQHandler },                        /* -2 = USART0_TX */
-  { USART1_RX_IRQHandler },                        /* -1 = USART1_RX */
-  { USART1_TX_IRQHandler },                        /* 00 = USART1_TX */
-  { ICACHE0_IRQHandler },                          /* 01 = ICACHE0 */
-  { BURTC_IRQHandler },                            /* 02 = BURTC */
-  { LETIMER0_IRQHandler },                         /* 03 = LETIMER0 */
-  { SYSCFG_IRQHandler },                           /* 04 = SYSCFG */
-  { LDMA_IRQHandler },                             /* 05 = LDMA */
-  { LFXO_IRQHandler },                             /* 06 = LFXO */
-  { LFRCO_IRQHandler },                            /* 07 = LFRCO */
-  { ULFRCO_IRQHandler },                           /* 08 = ULFRCO */
-  { GPIO_ODD_IRQHandler },                         /* 09 = GPIO_ODD */
-  { GPIO_EVEN_IRQHandler },                        /* 10 = GPIO_EVEN */
-  { I2C0_IRQHandler },                             /* 11 = I2C0 */
-  { I2C1_IRQHandler },                             /* 12 = I2C1 */
-  { EMUDG_IRQHandler },                            /* 13 = EMUDG */
-  { EMUSE_IRQHandler },                            /* 14 = EMUSE */
+  { CRYPTOACC_IRQHandler },                        /* 00 = CRYPTOACC */
+  { TRNG_IRQHandler },                             /* 01 = TRNG */
+  { PKE_IRQHandler },                              /* 02 = PKE */
+  { SMU_SECURE_IRQHandler },                       /* 03 = SMU_SECURE */
+  { SMU_S_PRIVILEGED_IRQHandler },                 /* 04 = SMU_S_PRIVILEGED */
+  { SMU_NS_PRIVILEGED_IRQHandler },                /* 05 = SMU_NS_PRIVILEGED */
+  { EMU_IRQHandler },                              /* 06 = EMU */
+  { TIMER0_IRQHandler },                           /* 07 = TIMER0 */
+  { TIMER1_IRQHandler },                           /* 08 = TIMER1 */
+  { TIMER2_IRQHandler },                           /* 09 = TIMER2 */
+  { TIMER3_IRQHandler },                           /* 10 = TIMER3 */
+  { TIMER4_IRQHandler },                           /* 11 = TIMER4 */
+  { RTCC_IRQHandler },                             /* 12 = RTCC */
+  { USART0_RX_IRQHandler },                        /* 13 = USART0_RX */
+  { USART0_TX_IRQHandler },                        /* 14 = USART0_TX */
+  { USART1_RX_IRQHandler },                        /* 15 = USART1_RX */
+  { USART1_TX_IRQHandler },                        /* 16 = USART1_TX */
+  { ICACHE0_IRQHandler },                          /* 17 = ICACHE0 */
+  { BURTC_IRQHandler },                            /* 18 = BURTC */
+  { LETIMER0_IRQHandler },                         /* 19 = LETIMER0 */
+  { SYSCFG_IRQHandler },                           /* 20 = SYSCFG */
+  { LDMA_IRQHandler },                             /* 21 = LDMA */
+  { LFXO_IRQHandler },                             /* 22 = LFXO */
+  { LFRCO_IRQHandler },                            /* 23 = LFRCO */
+  { ULFRCO_IRQHandler },                           /* 24 = ULFRCO */
+  { GPIO_ODD_IRQHandler },                         /* 25 = GPIO_ODD */
+  { GPIO_EVEN_IRQHandler },                        /* 26 = GPIO_EVEN */
+  { I2C0_IRQHandler },                             /* 27 = I2C0 */
+  { I2C1_IRQHandler },                             /* 28 = I2C1 */
+  { EMUDG_IRQHandler },                            /* 29 = EMUDG */
+  { EMUSE_IRQHandler },                            /* 30 = EMUSE */
   { Default_Handler },                             /* Reserved */
   { Default_Handler },                             /* Reserved */
   { Default_Handler },                             /* Reserved */
@@ -269,27 +269,27 @@ const tVectorEntry __VECTOR_TABLE[TOTAL_INTERRUPTS] __VECTOR_TABLE_ATTRIBUTE = {
   { Default_Handler },                             /* Reserved */
   { Default_Handler },                             /* Reserved */
   { Default_Handler },                             /* Reserved */
-  { WDOG0_IRQHandler },                            /* 27 = WDOG0 */
-  { HFXO0_IRQHandler },                            /* 28 = HFXO0 */
-  { HFRCO0_IRQHandler },                           /* 29 = HFRCO0 */
-  { CMU_IRQHandler },                              /* 30 = CMU */
+  { WDOG0_IRQHandler },                            /* 43 = WDOG0 */
+  { HFXO0_IRQHandler },                            /* 44 = HFXO0 */
+  { HFRCO0_IRQHandler },                           /* 45 = HFRCO0 */
+  { CMU_IRQHandler },                              /* 46 = CMU */
   { Default_Handler },                             /* Reserved */
-  { IADC_IRQHandler },                             /* 32 = IADC */
-  { MSC_IRQHandler },                              /* 33 = MSC */
-  { DPLL0_IRQHandler },                            /* 34 = DPLL0 */
-  { PDM_IRQHandler },                              /* 35 = PDM */
-  { SW0_IRQHandler },                              /* 36 = SW0 */
-  { SW1_IRQHandler },                              /* 37 = SW1 */
-  { SW2_IRQHandler },                              /* 38 = SW2 */
-  { SW3_IRQHandler },                              /* 39 = SW3 */
-  { KERNEL0_IRQHandler },                          /* 40 = KERNEL0 */
-  { KERNEL1_IRQHandler },                          /* 41 = KERNEL1 */
+  { IADC_IRQHandler },                             /* 48 = IADC */
+  { MSC_IRQHandler },                              /* 49 = MSC */
+  { DPLL0_IRQHandler },                            /* 50 = DPLL0 */
+  { PDM_IRQHandler },                              /* 51 = PDM */
+  { SW0_IRQHandler },                              /* 52 = SW0 */
+  { SW1_IRQHandler },                              /* 53 = SW1 */
+  { SW2_IRQHandler },                              /* 54 = SW2 */
+  { SW3_IRQHandler },                              /* 55 = SW3 */
+  { KERNEL0_IRQHandler },                          /* 56 = KERNEL0 */
+  { KERNEL1_IRQHandler },                          /* 57 = KERNEL1 */
   { Default_Handler },                             /* Reserved */
   { Default_Handler },                             /* Reserved */
-  { EMUEFP_IRQHandler },                           /* 44 = EMUEFP */
-  { DCDC_IRQHandler },                             /* 45 = DCDC */
-  { EUART0_RX_IRQHandler },                        /* 46 = EUART0_RX */
-  { EUART0_TX_IRQHandler },                        /* 47 = EUART0_TX */
+  { EMUEFP_IRQHandler },                           /* 60 = EMUEFP */
+  { DCDC_IRQHandler },                             /* 61 = DCDC */
+  { EUART0_RX_IRQHandler },                        /* 62 = EUART0_RX */
+  { EUART0_TX_IRQHandler },                        /* 63 = EUART0_TX */
 };
 
 #if defined (__GNUC__)

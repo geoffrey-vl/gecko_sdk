@@ -42,6 +42,7 @@
 #include "app_common.h"
 #include "em_core.h"
 #include "pa_conversions_efr32.h"
+#include "buffer_pool_allocator.h"
 
 // This function gets the power mode index from a string.
 // Returns 0xFF if the string is not found.
@@ -687,6 +688,7 @@ void delayUs(sl_cli_command_arg_t *args)
 #include "pa_auto_mode.h"
 static bool paAutoModeEnable = false;
 RAIL_PaAutoModeConfigEntry_t *paAutoModeConfig = NULL;
+void *paAutoModeConfigHandle;
 void configPaAutoMode(sl_cli_command_arg_t *args)
 {
   CHECK_RAIL_HANDLE(sl_cli_get_command_string(args, 0));
@@ -711,9 +713,11 @@ void configPaAutoMode(sl_cli_command_arg_t *args)
     return;
   }
   if (paAutoModeConfig != NULL) {
-    free(paAutoModeConfig);
+    memoryFree(paAutoModeConfigHandle);
+    paAutoModeConfig = NULL;
   }
-  paAutoModeConfig = (RAIL_PaAutoModeConfigEntry_t *)malloc(numOfConfigs * sizeof(RAIL_PaAutoModeConfigEntry_t));
+  paAutoModeConfigHandle = memoryAllocate(numOfConfigs * sizeof(RAIL_PaAutoModeConfigEntry_t));
+  paAutoModeConfig = (RAIL_PaAutoModeConfigEntry_t *)memoryPtrFromHandle(paAutoModeConfigHandle);
   if (paAutoModeConfig == NULL) {
     responsePrintError(sl_cli_get_command_string(args, 0), 0x01,
                        "The PA auto mode configs are not configured.");

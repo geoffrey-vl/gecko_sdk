@@ -52,9 +52,9 @@
 #include "sl_component_catalog.h"
 #endif
 
-#if defined(SL_CATALOG_OT_RCP_GP_INTERFACE_PRESENT)
+#if OPENTHREAD_CONFIG_MULTIPAN_RCP_ENABLE
 #include "sl_rcp_gp_interface.h"
-#endif // SL_CATALOG_OT_RCP_GP_INTERFACE_PRESENT
+#endif
 
 #if OPENTHREAD_CONFIG_HEAP_EXTERNAL_ENABLE
 #include "sl_malloc.h"
@@ -113,7 +113,7 @@ void otSysProcessDrivers(otInstance *aInstance)
     sInstance = aInstance;
 
     // should sleep and wait for interrupts here
-#if defined(SL_CATALOG_OT_RCP_GP_INTERFACE_PRESENT)
+#if OPENTHREAD_CONFIG_MULTIPAN_RCP_ENABLE
     efr32GpProcess();
 #endif
 

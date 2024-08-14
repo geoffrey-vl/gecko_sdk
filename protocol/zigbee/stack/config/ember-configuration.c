@@ -33,6 +33,11 @@
 #include "sl_component_catalog.h"
 #endif
 
+#if defined(SL_CATALOG_MICRIUMOS_KERNEL_PRESENT) || defined(SL_CATALOG_FREERTOS_KERNEL_PRESENT)
+#include "sl_memory_config.h" // Required for SL_STACK_SIZE
+#include "em_device.h"        // Required for _SILICON_LABS_32B_SERIES_1_CONFIG_3
+#endif // defined(SL_CATALOG_MICRIUMOS_KERNEL_PRESENT) || defined(SL_CATALOG_FREERTOS_KERNEL_PRESENT)
+
 // *****************************************
 // Memory Allocations & declarations
 // *****************************************
@@ -1011,3 +1016,29 @@ WEAK(void emberUpdateMultiMacRejoinChannelMaskForSelectionOrJoiningDevice(uint32
   *rejoinChannelMask = PG_CH_BITMASK32(emberGetLogicalChannel());
 #endif
 }
+
+#if defined(SL_CATALOG_MICRIUMOS_KERNEL_PRESENT)
+#if defined(SL_CATALOG_ZIGBEE_NCP_CPC_PRESENT)
+  #if defined(_SILICON_LABS_32B_SERIES_1_CONFIG_3) && (SL_STACK_SIZE  < 1024)
+     #error "Error: The application requires SL_STACK_SIZE to be at least 1024 bytes."
+  #elif !defined(_SILICON_LABS_32B_SERIES_1_CONFIG_3) && (SL_STACK_SIZE < 3584)
+     #error "Error: The application requires SL_STACK_SIZE to be at least 3584 bytes."
+  #endif // _SILICON_LABS_32B_SERIES_1_CONFIG_3
+#elif defined(SL_CATALOG_OPENTHREAD_STACK_PRESENT) && (SL_STACK_SIZE < 4608)
+    #error "Error: The application requires SL_STACK_SIZE to be at least 4608 bytes."
+#elif (SL_STACK_SIZE < 512)
+    #error "Error: The application requires SL_STACK_SIZE to be at least 512 bytes."
+#endif // SL_CATALOG_ZIGBEE_NCP_CPC_PRESENT
+#elif defined(SL_CATALOG_FREERTOS_KERNEL_PRESENT)
+#if defined(SL_CATALOG_ZIGBEE_NCP_CPC_PRESENT)
+  #if defined(_SILICON_LABS_32B_SERIES_1_CONFIG_3) && (SL_STACK_SIZE < 1536)
+    #error "Error: The application requires SL_STACK_SIZE to be at least 1536 bytes."
+  #elif !defined(_SILICON_LABS_32B_SERIES_1_CONFIG_3) && (SL_STACK_SIZE < 4096)
+    #error "Error: The application requires SL_STACK_SIZE to be at least 4096 bytes."
+  #endif // _SILICON_LABS_32B_SERIES_1_CONFIG_3
+#elif defined(SL_CATALOG_OPENTHREAD_STACK_PRESENT) && (SL_STACK_SIZE < 5120)
+    #error "Error: The application requires SL_STACK_SIZE to be at least 5120 bytes."
+#elif (SL_STACK_SIZE < 1024)
+    #error "Error: The application requires SL_STACK_SIZE to be at least 1024 bytes."
+#endif // SL_CATALOG_ZIGBEE_NCP_CPC_PRESENT
+#endif // SL_CATALOG_FREERTOS_KERNEL_PRESENT

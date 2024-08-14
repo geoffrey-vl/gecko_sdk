@@ -573,7 +573,7 @@ static void helper_app_init(void)
 
 static void helper_run_events(void)
 {
-  sli_zigbee_run_events();
+  sli_zigbee_af_run_events();
 }
 
 static void helper_send_ack(void)

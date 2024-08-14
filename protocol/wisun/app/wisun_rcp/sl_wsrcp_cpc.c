@@ -75,6 +75,7 @@ int cpc_tx(void *ctxt, void *buf, int buf_len)
     int ret;
 
     ret = sl_cpc_write(cpc_ep, buf, buf_len, 0, NULL);
+    BUG_ON(ret);
     TRACE(TR_HDLC, "hdlc tx: %s (%d bytes)",
            bytes_str(buf, buf_len, NULL, trace_buffer, sizeof(trace_buffer), DELIM_SPACE | ELLIPSIS_STAR), buf_len);
     osSemaphoreAcquire(g_tx_lock, osWaitForever);

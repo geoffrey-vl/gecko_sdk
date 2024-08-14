@@ -296,14 +296,18 @@ const app_enum_t app_wisun_nw_size_enum[] = {
 const app_enum_t app_regulation_enum[] = {
   { "none", SL_WISUN_REGULATION_NONE },
   { "arib", SL_WISUN_REGULATION_ARIB },
+  { "wpc", SL_WISUN_REGULATION_WPC },
   { NULL, 0 }
 };
 
 const app_enum_t app_wisun_phy_channel_spacing_enum[] = {
-  { "100kHz", SL_WISUN_CHANNEL_SPACING_100HZ },
-  { "200kHz", SL_WISUN_CHANNEL_SPACING_200HZ },
-  { "400kHz", SL_WISUN_CHANNEL_SPACING_400HZ },
-  { "600kHz", SL_WISUN_CHANNEL_SPACING_600HZ },
+  { "100kHz", SL_WISUN_CHANNEL_SPACING_100KHZ },
+  { "200kHz", SL_WISUN_CHANNEL_SPACING_200KHZ },
+  { "400kHz", SL_WISUN_CHANNEL_SPACING_400KHZ },
+  { "600kHz", SL_WISUN_CHANNEL_SPACING_600KHZ },
+  { "250kHz", SL_WISUN_CHANNEL_SPACING_250KHZ },
+  { "800kHz", SL_WISUN_CHANNEL_SPACING_800KHZ },
+  { "1200kHz", SL_WISUN_CHANNEL_SPACING_1200KHZ },
   { NULL, 0 }
 };
 
@@ -475,6 +479,10 @@ app_wisun_phy_list_t *app_wisun_get_phy_list(app_wisun_phy_filter_t filter)
         // first element in the list
         if (head == NULL) {
           __alloc_phy_list_element_and_check(head, &phy_cfg);
+          // increment PHY mode id for first FAN11 OFDM PHY
+          if (phy_cfg.type == SL_WISUN_PHY_CONFIG_FAN11) {
+            ++phy_cfg.config.fan11.phy_mode_id;
+          }
           continue;
         }
 

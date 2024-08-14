@@ -101,10 +101,17 @@ static void init(void)
 }
 
 static void reset(void) {
-  //Save default settings to persistent data
-  cc_notification_write();
-
   notifications = cc_notification_get_config();
+  uint8_t n_notifications = cc_notification_get_config_length();
+
+  // Reset each notification's status
+  for (uint8_t i = 0; i < n_notifications; ++i) {
+    notifications[i].current_event = NOTIFICATION_EVENT_NO_EVENT;
+    notifications[i].status = NOTIFICATION_STATUS_UNSOLICIT_ACTIVATED;
+  }
+
+  // Save default settings to persistent data
+  cc_notification_write();
 }
 
 static void set_notification_status(uint8_t index, NOTIFICATION_STATUS notificationStatus) {

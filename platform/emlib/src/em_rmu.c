@@ -237,6 +237,10 @@ extern uint32_t rstCause;
  *
  * @param[in] mode  Reset mode.
  ******************************************************************************/
+#if defined(__GNUC__) && __GNUC__ >= 11
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wanalyzer-shift-count-overflow"
+#endif
 void RMU_ResetControl(RMU_Reset_TypeDef reset, RMU_ResetMode_TypeDef mode)
 {
   /* Note that the RMU supports bit-band access, but not peripheral bit-field set/clear. */
@@ -249,12 +253,16 @@ void RMU_ResetControl(RMU_Reset_TypeDef reset, RMU_ResetMode_TypeDef mode)
 #if defined(_EMU_RSTCTRL_MASK)
   BUS_RegBitWrite(&EMU->RSTCTRL, (uint32_t)shift, mode ? 1 : 0);
 #elif defined(_RMU_CTRL_PINRMODE_MASK)
+  EFM_ASSERT(shift < 32);
   val = (uint32_t)mode << shift;
   RMU->CTRL = (RMU->CTRL & ~reset) | val;
 #else
   BUS_RegBitWrite(&RMU->CTRL, (uint32_t)shift, mode ? 1 : 0);
 #endif
 }
+#if defined(__GNUC__) && __GNUC__ >= 11
+#pragma GCC diagnostic pop
+#endif
 
 /***************************************************************************//**
  * @brief

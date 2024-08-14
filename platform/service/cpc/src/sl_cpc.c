@@ -4094,6 +4094,10 @@ static sl_status_t re_transmit_frame(sl_cpc_endpoint_t* endpoint)
 
     return SL_STATUS_NOT_AVAILABLE;
   }
+  // We are about to re-submit the frame for transmission. Make sure the re-transmit
+  // timer is killed to avoid retransmitting twice.
+  // Ignore return code, since we  get an error when we stop a timer that has elapsed.
+  (void)sli_cpc_timer_stop_timer(&endpoint->re_transmit_timer);
   MCU_EXIT_ATOMIC();
 
 #if defined(SLI_CPC_ENABLE_TEST_FEATURES)

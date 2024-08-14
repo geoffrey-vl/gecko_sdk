@@ -46,6 +46,7 @@ include:
     - path: asm.h
     - path: bootloader-interface.h
     - path: bootloader-interface-app.h
+    - path: bootloader-eeprom.h
     - path: button.h
     - path: crc.h
     - path: efm32_micro.h

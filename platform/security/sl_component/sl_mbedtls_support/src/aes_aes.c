@@ -56,7 +56,7 @@
 #include "mbedtls/threading.h"
 #include "em_core.h"
 /* Mutex for protecting access to the AES instance */
-static mbedtls_threading_mutex_t aes_mutex;
+static mbedtls_threading_mutex_t aes_mutex MUTEX_INIT;
 static volatile bool aes_mutex_inited = false;
 #endif
 

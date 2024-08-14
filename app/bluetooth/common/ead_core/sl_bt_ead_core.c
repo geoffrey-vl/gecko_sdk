@@ -103,12 +103,15 @@ sl_status_t sl_bt_ead_session_init(sl_bt_ead_key_material_p key_material,
 
   if (key_material != NULL) {
     // Make a copy of the session key, first
-    memcpy(tmp, key_material->key, SL_BT_EAD_SESSION_KEY_SIZE);
+    memcpy(tmp, key_material->key, sizeof(tmp));
 
     // Swap key endianness to make the sli_ccm_[crypto] functions work as expected
-    for (unsigned int t = 0; t < SL_BT_EAD_SESSION_KEY_SIZE; t++) {
-      key_material->key[(SL_BT_EAD_SESSION_KEY_SIZE - 1) - t] = tmp[t];
+    for (unsigned int t = 0; t < sizeof(tmp); t++) {
+      key_material->key[(sizeof(tmp) - 1) - t] = tmp[t];
     }
+
+    // Sanitize the copy as it is not needed anymore
+    memset(tmp, 0, sizeof(tmp));
 
     if (nonce != NULL) {
       memcpy((void *)nonce->iv,
@@ -253,7 +256,7 @@ sl_status_t sl_bt_ead_decrypt(sl_bt_ead_key_material_p key_material,
         memcpy(output_data, data, length);
         memcpy(output_data + length, mic, SL_BT_EAD_MIC_SIZE);
 
-        // Authenticate and encrypt
+        // Decrypt with authentication data
         status = psa_aead_decrypt(key_id, PSA_ALG_BLE_CCM,
                                   (const uint8_t *)nonce, SL_BT_EAD_NONCE_SIZE,
                                   aad, sizeof(aad),
@@ -335,6 +338,8 @@ sl_status_t sl_bt_ead_unpack_decrypt(sl_bt_ead_key_material_p key_material,
         *data += start_index;
       }
     }
+    // Sanitize nonce copy
+    memset(&nonce, 0, sizeof(nonce));
   }
 
   return result;

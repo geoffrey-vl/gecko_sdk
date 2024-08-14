@@ -203,7 +203,7 @@ void sli_serial_adapter_tick_callback(void)
 {
   otSysMainloopContext mainloop;
   uint32_t timeoutMs = emberMsToNextStackEvent();
-  uint32_t appMs = sli_zigbee_ms_to_next_app_framework_event();
+  uint32_t appMs = sli_zigbee_af_ms_to_next_event();
   timeoutMs = (timeoutMs < appMs ? timeoutMs : appMs);
 
   // Clear mainloop FDs

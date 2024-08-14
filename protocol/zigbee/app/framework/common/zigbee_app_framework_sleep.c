@@ -191,7 +191,6 @@ uint32_t sli_zigbee_app_framework_set_pm_requirements_and_get_ms_to_next_wakeup(
 {
   uint32_t duration_ms = 0;
 
-  INTERRUPTS_OFF();
   // Check if sleep is permitted
   bool in_sleep_backoff;
   #if (SL_ZIGBEE_APP_FRAMEWORK_BACKOFF_SLEEP_MS > 0)
@@ -212,7 +211,7 @@ uint32_t sli_zigbee_app_framework_set_pm_requirements_and_get_ms_to_next_wakeup(
     duration_ms = (emberOkToHibernate()
                    ? MAX_INT32U_VALUE
                    : emberMsToNextStackEvent());
-    duration_ms = SL_MIN(duration_ms, sli_zigbee_ms_to_next_app_framework_event());
+    duration_ms = SL_MIN(duration_ms, sli_zigbee_af_ms_to_next_event());
 
     // If the sleep duration is below our minimum threshold, we don't bother
     // sleeping.  It takes time to shut everything down and bring everything
@@ -250,9 +249,8 @@ uint32_t sli_zigbee_app_framework_set_pm_requirements_and_get_ms_to_next_wakeup(
     assert(em1_requirement_set);
 
     duration_ms = emberMsToNextStackEvent();
-    duration_ms = SL_MIN(duration_ms, sli_zigbee_ms_to_next_app_framework_event());
+    duration_ms = SL_MIN(duration_ms, sli_zigbee_af_ms_to_next_event());
   }
-  INTERRUPTS_ON();
 
   return (duration_ms);
 }
@@ -372,7 +370,7 @@ void sleep_tick(uint32_t *ms_to_next_event, bool *enter_em2)
 
   // Sleep or idle until it is time for the next event.
   ms_to_next_stack_event = emberMsToNextStackEvent();
-  ms_to_next_app_event = sli_zigbee_ms_to_next_app_framework_event();
+  ms_to_next_app_event = sli_zigbee_af_ms_to_next_event();
   *ms_to_next_event = SL_MIN(ms_to_next_stack_event, ms_to_next_app_event);
 
   if (sleepMode == EZSP_FRAME_CONTROL_POWER_DOWN \

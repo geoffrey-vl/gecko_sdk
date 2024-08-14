@@ -312,7 +312,7 @@ static bool joinedToDistributedNetwork(void)
 
 void sli_zigbee_af_network_steering_stack_status_callback(EmberStatus status)
 {
-  emberAfCorePrintln("%p stack status 0x%X", PLUGIN_NAME, status);
+  emberAfCorePrintln("%s stack status 0x%X", PLUGIN_NAME, status);
 
   if (sli_zigbee_af_network_steering_state
       == EMBER_AF_PLUGIN_NETWORK_STEERING_STATE_NONE) {
@@ -680,7 +680,7 @@ EmberStatus emberAfPluginNetworkSteeringStart(void)
                        sli_zigbee_af_network_steering_plugin_name);
   }
 
-  emberAfCorePrintln("%p: %p: 0x%X",
+  emberAfCorePrintln("%s: %s: 0x%X",
                      sli_zigbee_af_network_steering_plugin_name,
                      "Start",
                      status);
